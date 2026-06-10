@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Page Not Found — KingsWillow Craft Co.</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark">K</div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-title">KingsWillow</span>
+        <span class="nav-logo-sub">Craft Co. — Est. 1977</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/products">Products</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem;background:var(--forest-deep);">
+  <div>
+    <div id="batSvg" style="margin-bottom:2rem;display:flex;justify-content:center;"></div>
+    <div style="font-family:'Playfair Display',serif;font-size:5rem;font-weight:900;color:var(--copper);line-height:1;">404</div>
+    <h2 style="color:var(--cream);margin:0.75rem 0 1rem;">This page didn't make it past the crease.</h2>
+    <p style="color:rgba(250,247,240,0.6);max-width:400px;margin:0 auto 2.5rem;">The page you're looking for may have been moved, renamed, or doesn't exist. Head back to the workshop.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a href="/" class="btn btn-primary">Back to Home</a>
+      <a href="/products" class="btn btn-outline">Browse Bats</a>
+    </div>
+  </div>
+</div>
+<script src="/js/main.js"></script>
+<script>
+  document.getElementById('batSvg').innerHTML = createBatSVG('#D4924A','#8A5520','e404Grad');
+</script>
+</body>
+</html>

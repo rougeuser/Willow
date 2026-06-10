@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Craft Process — KingsWillow Craft Co.</title>
+  <meta name="description" content="From willow cleft to finished bat — discover the 8-step, 52-day process behind every KingsWillow cricket bat."/>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <style>
+    .process-page-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 4rem;
+      align-items: start;
+    }
+    .process-sticky {
+      position: sticky;
+      top: 90px;
+    }
+    .progress-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+    }
+    .progress-bar-wrap {
+      background: var(--cream-dark);
+      border-radius: 100px;
+      height: 8px;
+      margin: 1rem 0 1.5rem;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--copper), var(--forest-light));
+      border-radius: 100px;
+      width: 0%;
+      transition: width 0.8s ease;
+    }
+    .step-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .step-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0.6rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      color: var(--text-body);
+    }
+    .step-nav-item:hover { background: var(--cream-warm); }
+    .step-nav-item.current { background: var(--cream-warm); color: var(--forest-deep); }
+    .step-nav-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--cream-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .step-nav-item.current .step-nav-dot,
+    .step-nav-item.done .step-nav-dot {
+      background: var(--copper);
+      color: white;
+    }
+    .step-nav-label { font-size: 0.82rem; font-weight: 500; }
+    .step-nav-duration { font-size: 0.7rem; color: var(--text-muted); margin-left: auto; }
+
+    .process-step {
+      scroll-margin-top: 90px;
+    }
+    .step-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .step-number-big {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: var(--cream-dark);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 60px;
+      text-align: right;
+    }
+    @media (max-width: 900px) {
+      .process-page-layout { grid-template-columns: 1fr; }
+      .process-sticky { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark">K</div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-title">KingsWillow</span>
+        <span class="nav-logo-sub">Craft Co. — Est. 1977</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/products">Products</a></li>
+      <li><a href="/process" class="active">Craft Process</a></li>
+      <li><a href="/gallery">Gallery</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/custom" class="nav-cta">Custom Bat</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-woodgrain"></div>
+  <div class="page-hero-inner">
+    <span class="eyebrow">From Cleft to Crease</span>
+    <h1>The Making of a KingsWillow Bat</h1>
+    <p>52 days. Eight steps. Zero shortcuts. This is how we build a cricket bat.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+
+    <!-- Intro quote -->
+    <div style="max-width:700px;margin:0 auto 4rem;text-align:center;" data-animate>
+      <blockquote style="font-size:1.4rem;border:none;padding:0;text-align:center;">
+        "A cricket bat is not manufactured. It is <em>grown</em> from a tree, and <em>coaxed</em> into shape by hands that understand what willow wants to become."
+      </blockquote>
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-top:1rem;">— Harold King, Founder of KingsWillow Craft Co., 1977</p>
+    </div>
+
+    <div class="process-page-layout">
+      <!-- Main timeline -->
+      <div>
+        <div class="process-timeline" id="processTimeline">
+          <!-- Steps loaded via JS -->
+          <div style="height:200px;background:var(--cream-warm);border-radius:8px;"></div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="process-sticky">
+        <div class="progress-card">
+          <span class="eyebrow">Your Progress</span>
+          <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;margin-top:0.5rem;" id="progressLabel">Step 1 of 8</div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="progressBar"></div>
+          </div>
+          <div class="step-nav" id="stepNav">
+            <!-- Loaded via JS -->
+          </div>
+        </div>
+        <div style="margin-top:1.5rem;background:var(--forest-deep);border-radius:12px;padding:1.5rem;">
+          <span class="eyebrow" style="color:var(--copper-light);">Total Timeline</span>
+          <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--cream);margin:0.5rem 0 0.25rem;">52 Days</div>
+          <div style="font-size:0.82rem;color:rgba(250,247,240,0.6);line-height:1.5;">From cleft selection to dispatch. Professional grade Sovereign bats can take up to 60 days.</div>
+          <a href="/custom" class="btn btn-primary" style="margin-top:1.25rem;width:100%;justify-content:center;">Commission a Bat</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section-cream">
+  <div class="container">
+    <div class="section-header" data-animate>
+      <span class="eyebrow">Common Questions</span>
+      <h2>About Our Process</h2>
+    </div>
+    <div style="max-width:720px;">
+      <div id="faqList"></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>KingsWillow Craft Co.</h3>
+      <p>Handcrafting English willow cricket bats in Chelmsford, Essex since 1977.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="/products?cat=professional">Professional</a></li>
+        <li><a href="/products?cat=club">Club Range</a></li>
+        <li><a href="/custom">Custom Orders</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/process">The Craft</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Newsletter</h4>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" placeholder="your@email.com" required/>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 KingsWillow Craft Co. Ltd.</span>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+<script>
+  const faqs = [
+    { q: 'Can I visit the workshop?', a: 'Yes — we run open workshop days on the first Saturday of each month, April through September. Email us to book a place. Groups of up to 8 welcome.' },
+    { q: 'Do you sell unfinished clefts?', a: 'We do offer seasoned clefts to experienced bat makers. Available through our trade enquiry form. Minimum order 10 clefts.' },
+    { q: 'What knocking-in service do you offer?', a: 'All professional grade bats can be knocked-in by our craftsmen for an additional £25. This takes 2–3 extra working days.' },
+    { q: 'How long does a KingsWillow bat last?', a: 'With proper care — regular oiling, correct storage, and a toe guard — a Grade 1 bat should last 3–5 seasons of regular play. Some batsmen have used the same Monarch for 7 seasons.' },
+    { q: 'Do you repair bats?', a: 'Yes. We offer a full repair service including handle replacement, crack filling, and re-pressing. Send your bat to our workshop with a description of the damage.' },
+  ];
+
+  function renderFAQ() {
+    document.getElementById('faqList').innerHTML = faqs.map((f, i) => `
+      <div style="border-bottom:1px solid var(--border);padding:1.25rem 0;">
+        <button onclick="toggleFaq(${i})" style="width:100%;text-align:left;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:600;color:var(--forest-deep);">
+          <span>${f.q}</span>
+          <span id="faq-icon-${i}" style="font-size:1.2rem;flex-shrink:0;color:var(--copper);">+</span>
+        </button>
+        <div id="faq-body-${i}" style="display:none;padding-top:0.75rem;font-size:0.9rem;color:var(--text-muted);line-height:1.7;">${f.a}</div>
+      </div>
+    `).join('');
+  }
+
+  function toggleFaq(i) {
+    const body = document.getElementById(`faq-body-${i}`);
+    const icon = document.getElementById(`faq-icon-${i}`);
+    const open = body.style.display === 'block';
+    body.style.display = open ? 'none' : 'block';
+    icon.textContent = open ? '+' : '−';
+  }
+
+  async function loadProcess() {
+    try {
+      const data = await apiGet('/api/process');
+      const steps = data.data;
+      renderTimeline(steps);
+      renderStepNav(steps);
+      initScrollProgress(steps);
+    } catch {
+      document.getElementById('processTimeline').innerHTML = '<p>Unable to load process steps.</p>';
+    }
+  }
+
+  function renderTimeline(steps) {
+    document.getElementById('processTimeline').innerHTML = steps.map(s => `
+      <div class="process-step" id="step-${s.step}" data-step="${s.step}">
+        <div class="step-dot">${s.step}</div>
+        <div class="step-header">
+          <div class="step-number-big">0${s.step}</div>
+          <div>
+            <div class="step-duration">${s.duration}</div>
+            <h3 style="margin:0;">${s.title}</h3>
+          </div>
+        </div>
+        <p style="color:var(--text-muted);margin-bottom:1rem;">${s.description}</p>
+        <div class="step-details">
+          ${s.details.map(d => `<span class="step-tag">${d}</span>`).join('')}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function renderStepNav(steps) {
+    document.getElementById('stepNav').innerHTML = steps.map(s => `
+      <a class="step-nav-item" href="#step-${s.step}" id="nav-${s.step}">
+        <div class="step-nav-dot">${s.step}</div>
+        <span class="step-nav-label">${s.title}</span>
+        <span class="step-nav-duration">${s.duration.split('–')[0]}</span>
+      </a>
+    `).join('');
+  }
+
+  function initScrollProgress(steps) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const stepNum = parseInt(entry.target.dataset.step);
+          updateProgress(stepNum, steps.length);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    steps.forEach(s => {
+      const el = document.getElementById(`step-${s.step}`);
+      if (el) observer.observe(el);
+    });
+  }
+
+  function updateProgress(current, total) {
+    document.getElementById('progressLabel').textContent = `Step ${current} of ${total}`;
+    document.getElementById('progressBar').style.width = `${(current / total) * 100}%`;
+    document.querySelectorAll('.step-nav-item').forEach((el, i) => {
+      const stepNum = i + 1;
+      el.classList.toggle('current', stepNum === current);
+      el.classList.toggle('done', stepNum < current);
+    });
+  }
+
+  renderFAQ();
+  loadProcess();
+</script>
+</body>
+</html>

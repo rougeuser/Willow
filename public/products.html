@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bat Range — KingsWillow Craft Co.</title>
+  <meta name="description" content="Browse KingsWillow's full range of handcrafted cricket bats — professional, club, junior, and training grades."/>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <style>
+    .filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      align-items: center;
+    }
+    .filter-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-right: 0.5rem;
+    }
+    .filter-btn {
+      padding: 0.4rem 1rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      border: 1.5px solid var(--cream-dark);
+      border-radius: 20px;
+      background: transparent;
+      color: var(--text-body);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--forest-deep);
+      border-color: var(--forest-deep);
+      color: var(--cream);
+    }
+    .sort-select {
+      margin-left: auto;
+      padding: 0.4rem 2rem 0.4rem 0.75rem;
+      font-size: 0.8rem;
+      border: 1.5px solid var(--cream-dark);
+      border-radius: 6px;
+      background: transparent;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      color: var(--text-body);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23B87333' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.6rem center;
+      appearance: none;
+    }
+    .products-count {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 1.75rem;
+    }
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      margin-bottom: 0.75rem;
+    }
+    .feature-list li {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .feature-list li::before {
+      content: '✓';
+      color: var(--forest-mid);
+      font-weight: 700;
+      font-size: 0.7rem;
+    }
+    .no-results {
+      text-align: center;
+      padding: 4rem;
+      color: var(--text-muted);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark">K</div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-title">KingsWillow</span>
+        <span class="nav-logo-sub">Craft Co. — Est. 1977</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/products" class="active">Products</a></li>
+      <li><a href="/process">Craft Process</a></li>
+      <li><a href="/gallery">Gallery</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/custom" class="nav-cta">Custom Bat</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-woodgrain"></div>
+  <div class="page-hero-inner">
+    <span class="eyebrow">Our Full Range</span>
+    <h1>Bats Built for the Game</h1>
+    <p>Every grade of English willow, every style of play. Find your bat.</p>
+  </div>
+</div>
+
+<section class="section" style="padding-top:4rem;">
+  <div class="container">
+
+    <div class="filter-bar">
+      <span class="filter-label">Filter:</span>
+      <button class="filter-btn active" data-cat="all">All Bats</button>
+      <button class="filter-btn" data-cat="professional">Professional</button>
+      <button class="filter-btn" data-cat="club">Club</button>
+      <button class="filter-btn" data-cat="junior">Junior</button>
+      <button class="filter-btn" data-cat="training">Training</button>
+      <select class="sort-select" id="sortSelect">
+        <option value="">Sort by: Default</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+      </select>
+    </div>
+
+    <p class="products-count" id="productsCount">Loading bats…</p>
+    <div class="products-grid" id="productsGrid"></div>
+
+  </div>
+</section>
+
+<!-- Comparison guide -->
+<section class="section section-cream">
+  <div class="container">
+    <div class="section-header" data-animate>
+      <span class="eyebrow">Grade Guide</span>
+      <h2>Choosing the Right Willow Grade</h2>
+      <p>Not all willow is the same. Here's what the grades mean and who they're for.</p>
+    </div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
+        <thead>
+          <tr style="background:var(--forest-deep);color:var(--cream);">
+            <th style="padding:0.9rem 1.25rem;text-align:left;font-family:'Playfair Display',serif;font-weight:600;">Grade</th>
+            <th style="padding:0.9rem 1.25rem;text-align:left;">Grain Count</th>
+            <th style="padding:0.9rem 1.25rem;text-align:left;">Appearance</th>
+            <th style="padding:0.9rem 1.25rem;text-align:left;">Best For</th>
+            <th style="padding:0.9rem 1.25rem;text-align:left;">Break-in</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:0.9rem 1.25rem;font-weight:600;color:var(--copper);">Grade 1+</td>
+            <td style="padding:0.9rem 1.25rem;">7+ grains</td>
+            <td style="padding:0.9rem 1.25rem;">Straight, consistent, few blemishes</td>
+            <td style="padding:0.9rem 1.25rem;">Professional / First-class</td>
+            <td style="padding:0.9rem 1.25rem;">6+ hrs knocking-in</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);background:rgba(255,255,255,0.5);">
+            <td style="padding:0.9rem 1.25rem;font-weight:600;color:var(--forest-mid);">Grade 1</td>
+            <td style="padding:0.9rem 1.25rem;">5–7 grains</td>
+            <td style="padding:0.9rem 1.25rem;">Mostly straight, minor blemishes</td>
+            <td style="padding:0.9rem 1.25rem;">County / Serious club</td>
+            <td style="padding:0.9rem 1.25rem;">4–6 hrs knocking-in</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:0.9rem 1.25rem;font-weight:600;">Grade 2</td>
+            <td style="padding:0.9rem 1.25rem;">4–6 grains</td>
+            <td style="padding:0.9rem 1.25rem;">Some irregular grains, minor stains</td>
+            <td style="padding:0.9rem 1.25rem;">Club / League cricket</td>
+            <td style="padding:0.9rem 1.25rem;">3–4 hrs knocking-in</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);background:rgba(255,255,255,0.5);">
+            <td style="padding:0.9rem 1.25rem;font-weight:600;">Grade 3</td>
+            <td style="padding:0.9rem 1.25rem;">3–5 grains</td>
+            <td style="padding:0.9rem 1.25rem;">Visual blemishes acceptable</td>
+            <td style="padding:0.9rem 1.25rem;">Club / Junior / Beginners</td>
+            <td style="padding:0.9rem 1.25rem;">2–3 hrs knocking-in</td>
+          </tr>
+          <tr>
+            <td style="padding:0.9rem 1.25rem;font-weight:600;color:var(--text-muted);">Kashmir</td>
+            <td style="padding:0.9rem 1.25rem;">N/A</td>
+            <td style="padding:0.9rem 1.25rem;">Harder, denser wood</td>
+            <td style="padding:0.9rem 1.25rem;">Practice / Training</td>
+            <td style="padding:0.9rem 1.25rem;">Minimal</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>KingsWillow Craft Co.</h3>
+      <p>Handcrafting English willow cricket bats in Chelmsford, Essex since 1977.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="/products?cat=professional">Professional</a></li>
+        <li><a href="/products?cat=club">Club Range</a></li>
+        <li><a href="/products?cat=junior">Junior</a></li>
+        <li><a href="/custom">Custom Orders</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/process">The Craft</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Newsletter</h4>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" placeholder="your@email.com" required/>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 KingsWillow Craft Co. Ltd.</span>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+<script>
+  let allProducts = [];
+  let currentCat = 'all';
+  let currentSort = '';
+
+  async function loadProducts() {
+    try {
+      const data = await apiGet('/api/products');
+      allProducts = data.data;
+      applyFilters();
+    } catch {
+      document.getElementById('productsGrid').innerHTML =
+        '<p style="color:var(--text-muted)">Unable to load products.</p>';
+    }
+  }
+
+  function applyFilters() {
+    let filtered = [...allProducts];
+    if (currentCat !== 'all') filtered = filtered.filter(p => p.category === currentCat);
+    if (currentSort === 'price-asc') filtered.sort((a,b) => a.price - b.price);
+    if (currentSort === 'price-desc') filtered.sort((a,b) => b.price - a.price);
+    renderGrid(filtered);
+  }
+
+  function renderGrid(products) {
+    const count = document.getElementById('productsCount');
+    const grid = document.getElementById('productsGrid');
+    count.textContent = `${products.length} bat${products.length !== 1 ? 's' : ''} found`;
+
+    if (!products.length) {
+      grid.innerHTML = '<div class="no-results"><p>No bats match your filter.<br><small>Try selecting "All Bats"</small></p></div>';
+      return;
+    }
+
+    grid.innerHTML = products.map(p => `
+      <article class="product-card" id="product-${p.id}" data-animate>
+        <div class="product-card-visual">
+          <div class="bat-illustration" id="bat-${p.id}"></div>
+          <span class="product-badge ${!p.inStock ? 'out-of-stock' : ''}">${p.inStock ? p.category : 'Sold Out'}</span>
+        </div>
+        <div class="product-card-body">
+          <div class="product-grade">${p.grade}</div>
+          <h3>${p.name}</h3>
+          <p>${p.description}</p>
+          <ul class="feature-list">
+            ${p.features.map(f => `<li>${f}</li>`).join('')}
+          </ul>
+          <div class="product-specs">
+            <div class="spec-item"><span class="spec-label">Weight</span><span class="spec-value">${p.weight}</span></div>
+            <div class="spec-item"><span class="spec-label">Profile</span><span class="spec-value">${p.profile}</span></div>
+            <div class="spec-item"><span class="spec-label">Handle</span><span class="spec-value">${p.handle.split('—')[0].trim()}</span></div>
+            <div class="spec-item"><span class="spec-label">Stock</span><span class="spec-value" style="color:${p.inStock?'var(--forest-mid)':'#999'}">${p.inStock ? 'In Stock' : 'Sold Out'}</span></div>
+          </div>
+          <div class="product-footer">
+            <div>
+              <span class="product-price">£${p.price.toFixed(2)}</span>
+              <span class="product-price-sub">inc. VAT · free UK delivery</span>
+            </div>
+            ${p.inStock
+              ? `<a href="/contact" class="btn btn-primary btn-sm">Order Now</a>`
+              : `<a href="/contact" class="btn btn-sm" style="border:1.5px solid var(--cream-dark);color:var(--text-muted);">Notify Me</a>`
+            }
+          </div>
+        </div>
+      </article>
+    `).join('');
+
+    products.forEach(p => {
+      const el = document.getElementById(`bat-${p.id}`);
+      if (el) el.innerHTML = createBatSVG();
+    });
+  }
+
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCat = btn.dataset.cat;
+      applyFilters();
+    });
+  });
+
+  document.getElementById('sortSelect').addEventListener('change', e => {
+    currentSort = e.target.value;
+    applyFilters();
+  });
+
+  // Check URL params
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('cat')) {
+    currentCat = params.get('cat');
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.cat === currentCat);
+    });
+  }
+
+  loadProducts();
+</script>
+</body>
+</html>

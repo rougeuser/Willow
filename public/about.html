@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Story — KingsWillow Craft Co.</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <style>
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+    .timeline-item:last-child { border-bottom: none; }
+    .timeline-year {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--copper);
+      line-height: 1;
+    }
+    .timeline-item h4 { margin-bottom: 0.4rem; }
+    .timeline-item p { font-size: 0.9rem; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark">K</div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-title">KingsWillow</span>
+        <span class="nav-logo-sub">Craft Co. — Est. 1977</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/products">Products</a></li>
+      <li><a href="/process">Craft Process</a></li>
+      <li><a href="/gallery">Gallery</a></li>
+      <li><a href="/about" class="active">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/custom" class="nav-cta">Custom Bat</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-woodgrain"></div>
+  <div class="page-hero-inner">
+    <span class="eyebrow">Est. 1977 · Chelmsford, Essex</span>
+    <h1>Forty-Seven Years of Willow</h1>
+    <p>A family workshop. A lifelong obsession. A bat you'll pass down.</p>
+  </div>
+</div>
+
+<!-- Story -->
+<section class="section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;" data-animate>
+      <div>
+        <span class="eyebrow">The Founding</span>
+        <h2>It Started with a Broken Bat</h2>
+        <p style="margin:1rem 0;">Harold King was a middle-order batsman of modest ability but obsessive attention to equipment. In 1977, after snapping his third bought bat in a single Essex League season, he decided to make his own.</p>
+        <p>What began in a garage with a draw knife, a hand plane, and willow sourced from a farmer in Chelmsford became KingsWillow Craft Co. — today a three-generation workshop producing over 250 bats a year, still from the same address.</p>
+        <p style="margin-top:1rem;">Harold's son Robert took over the workshop in 2001. His daughter Ellie joined as head of finishing and design in 2018. Between them they carry 70 years of combined bat-making experience.</p>
+      </div>
+      <div style="background:var(--forest-deep);border-radius:16px;padding:3rem;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:320px;" data-animate>
+        <div id="aboutBatSvg" style="display:flex;justify-content:center;"></div>
+        <div style="text-align:center;margin-top:1.5rem;">
+          <div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--cream);">Harold King</div>
+          <div style="font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--copper-light);margin-top:0.25rem;">Founder · Master Craftsman</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Values -->
+<section class="section section-cream">
+  <div class="container">
+    <div class="section-header" data-animate>
+      <span class="eyebrow">What We Stand For</span>
+      <h2>The KingsWillow Principles</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card" data-animate>
+        <span class="value-icon">🌲</span>
+        <h4>Willow Conservation</h4>
+        <p>Partnered with Essex Willow Growers since 1984. We replant 3 cricket willows for every cleft we harvest, and support 4 grower families year-round.</p>
+      </div>
+      <div class="value-card" data-animate>
+        <span class="value-icon">🏏</span>
+        <h4>Sport First</h4>
+        <p>We don't make bats to maximise margin. We make them to perform. Every specification decision starts with what helps the batter, not what's cheapest to produce.</p>
+      </div>
+      <div class="value-card" data-animate>
+        <span class="value-icon">🔧</span>
+        <h4>Craft, Not Commerce</h4>
+        <p>We cap production at 300 bats per season. We will not scale beyond what our craftsmen can make well. When demand exceeds capacity, we wait — we don't compromise.</p>
+      </div>
+      <div class="value-card" data-animate>
+        <span class="value-icon">🧒</span>
+        <h4>Youth Commitment</h4>
+        <p>10% of all Colt junior bats are donated to underfunded county cricket academies each year. Since 2010, we've donated over 400 bats.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Team -->
+<section class="section">
+  <div class="container">
+    <div class="section-header" data-animate>
+      <span class="eyebrow">The Workshop</span>
+      <h2>Our Craftsmen</h2>
+      <p>Eight craftsmen. An average of 22 years' experience each. Every bat carries their name.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card" data-animate>
+        <div class="team-avatar">HK</div>
+        <h4>Harold King</h4>
+        <div class="team-role">Founder & Senior Craftsman</div>
+        <p>47 years at the draw knife. Still in the workshop Tuesday through Thursday, working only Grade 1+ clefts.</p>
+      </div>
+      <div class="team-card" data-animate>
+        <div class="team-avatar">RK</div>
+        <h4>Robert King</h4>
+        <div class="team-role">Workshop Director</div>
+        <p>Harold's son. Took over operations in 2001. Oversees cleft selection and all professional grade pressing.</p>
+      </div>
+      <div class="team-card" data-animate>
+        <div class="team-avatar">EK</div>
+        <h4>Ellie King</h4>
+        <div class="team-role">Head of Finishing & Design</div>
+        <p>Robert's daughter. Joined 2018. Responsible for the Sovereign range design and all custom commissions.</p>
+      </div>
+      <div class="team-card" data-animate>
+        <div class="team-avatar">MT</div>
+        <h4>Michael Thompson</h4>
+        <div class="team-role">Handle Specialist</div>
+        <p>26 years fitting handles. The craftsman whose spiral-cane splice you feel the moment you pick up a bat.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- History timeline -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header" data-animate>
+      <span class="eyebrow">Our History</span>
+      <h2>From Garage to Workshop</h2>
+    </div>
+    <div style="max-width:700px;">
+      <div class="timeline-item" data-animate>
+        <div class="timeline-year">1977</div>
+        <div>
+          <h4>Harold builds his first bat in a Chelmsford garage</h4>
+          <p>First five bats sold to teammates at Chelmsford CC. The workshop is born from necessity and stubbornness.</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-animate>
+        <div class="timeline-year">1984</div>
+        <div>
+          <h4>First willow growing partnership established</h4>
+          <p>Harold forms a direct agreement with the Blackwood family farm in Essex — a relationship that continues to this day.</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-animate>
+        <div class="timeline-year">1991</div>
+        <div>
+          <h4>First county cricketer uses a KingsWillow bat</h4>
+          <p>Essex Second XI opening batsman Alan Pritt scores 187* with a Monarch prototype. Word spreads through the county circuit.</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-animate>
+        <div class="timeline-year">2001</div>
+        <div>
+          <h4>Robert King joins full-time; workshop moves to current site</h4>
+          <p>New 3,200 sq ft workshop in Chelmsford allows for proper seasoning rooms and the first mechanical pressing rig.</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-animate>
+        <div class="timeline-year">2010</div>
+        <div>
+          <h4>Junior donation programme launches</h4>
+          <p>The Colt range is created and a commitment made to donate 10% of production to youth cricket academies.</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-animate>
+        <div class="timeline-year">2018</div>
+        <div>
+          <h4>Ellie King joins; Sovereign bespoke range launched</h4>
+          <p>Limited to 50 bats per season. The first run sells out in 11 days. Waiting list for the 2019 season opens immediately.</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-animate>
+        <div class="timeline-year">2024</div>
+        <div>
+          <h4>12,000th bat rolls off the bench</h4>
+          <p>A Grade 1+ Sovereign, commissioned by a Hampshire batsman whose father bought bat #1,000 in 1999.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>KingsWillow Craft Co.</h3>
+      <p>Handcrafting English willow cricket bats in Chelmsford, Essex since 1977.</p>
+    </div>
+    <div class="footer-col"><h4>Products</h4><ul><li><a href="/products">All Bats</a></li><li><a href="/custom">Custom</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="/about">About</a></li><li><a href="/process">The Craft</a></li><li><a href="/contact">Contact</a></li></ul></div>
+    <div class="footer-col">
+      <h4>Newsletter</h4>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" placeholder="your@email.com" required/>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+  <div class="footer-bottom"><span>© 2024 KingsWillow Craft Co. Ltd.</span></div>
+</footer>
+
+<script src="/js/main.js"></script>
+<script>
+  const el = document.getElementById('aboutBatSvg');
+  if (el) el.innerHTML = createBatSVG('#D4924A','#8A5520','aboutGrad');
+</script>
+</body>
+</html>

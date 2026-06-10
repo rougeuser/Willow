@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gallery — KingsWillow Craft Co.</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <style>
+    .gallery-filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .gallery-filter-btn {
+      padding: 0.4rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      background: transparent;
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text-body);
+    }
+    .gallery-filter-btn.active,
+    .gallery-filter-btn:hover {
+      background: var(--forest-deep);
+      border-color: var(--forest-deep);
+      color: var(--cream);
+    }
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-inner {
+      background: var(--forest-deep);
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 700px;
+      width: 100%;
+    }
+    .lightbox-visual {
+      height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox-body {
+      padding: 1.5rem 2rem;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark">K</div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-title">KingsWillow</span>
+        <span class="nav-logo-sub">Craft Co. — Est. 1977</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/products">Products</a></li>
+      <li><a href="/process">Craft Process</a></li>
+      <li><a href="/gallery" class="active">Gallery</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/custom" class="nav-cta">Custom Bat</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-woodgrain"></div>
+  <div class="page-hero-inner">
+    <span class="eyebrow">Workshop to Crease</span>
+    <h1>The Gallery</h1>
+    <p>From raw willow to finished bat — the KingsWillow workshop in pictures.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="gallery-filter-bar">
+      <button class="gallery-filter-btn active" data-filter="all">All</button>
+      <button class="gallery-filter-btn" data-filter="workshop">Workshop</button>
+      <button class="gallery-filter-btn" data-filter="bats">Finished Bats</button>
+      <button class="gallery-filter-btn" data-filter="process">Process</button>
+      <button class="gallery-filter-btn" data-filter="willow">Willow</button>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- JS rendered -->
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
+  <div class="lightbox-inner">
+    <div class="lightbox-visual" id="lightboxVisual"></div>
+    <div class="lightbox-body">
+      <div class="eyebrow" id="lightboxCat"></div>
+      <h3 id="lightboxTitle" style="color:var(--cream);margin-top:0.5rem;"></h3>
+      <p id="lightboxDesc" style="color:rgba(250,247,240,0.65);font-size:0.9rem;margin-top:0.5rem;"></p>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand"><h3>KingsWillow Craft Co.</h3><p>Handcrafting English willow cricket bats in Essex since 1977.</p></div>
+    <div class="footer-col"><h4>Products</h4><ul><li><a href="/products">All Bats</a></li><li><a href="/custom">Custom</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="/about">About</a></li><li><a href="/process">The Craft</a></li><li><a href="/contact">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Newsletter</h4><form class="newsletter-form" id="newsletterForm"><input type="email" placeholder="your@email.com" required/><button type="submit">Subscribe</button></form></div>
+  </div>
+  <div class="footer-bottom"><span>© 2024 KingsWillow Craft Co. Ltd.</span></div>
+</footer>
+
+<script src="/js/main.js"></script>
+<script>
+  const items = [
+    { id:1, title:'The Seasoning Store', cat:'willow', filter:'willow', desc:'Over 300 willow clefts air-drying in our climate-controlled seasoning store. Each one tagged with the date of arrival and target moisture.', bg:'linear-gradient(135deg,#1B3A2D,#3D6B58)', icon:'🌲' },
+    { id:2, title:'Hand Pressing', cat:'process', filter:'process', desc:'Master craftsman Robert King at the pressing table. Professional grade bats receive up to 6 hours of hand pressing to harden the face fibres.', bg:'linear-gradient(135deg,#3A2A1A,#7A5A30)', icon:'🔨' },
+    { id:3, title:'The Monarch — Grade 1', cat:'bats', filter:'bats', desc:'Our flagship professional bat. Note the tight grain count and the characteristic full-profile blade that KingsWillow has made for 47 years.', bg:'linear-gradient(135deg,#0F2318,#1B3A2D)', icon:'🏏' },
+    { id:4, title:'Cleft Selection', cat:'willow', filter:'willow', desc:'Harold examines a fresh cleft for grain straightness. The ideal cleft has straight, evenly spaced grains running the full length of the blade.', bg:'linear-gradient(135deg,#4A3520,#8B6030)', icon:'🔍' },
+    { id:5, title:'Handle Fitting', cat:'process', filter:'process', desc:'Michael Thompson fitting a 12-piece Sarawak cane handle. The splice joint is cut at 20° for maximum flex and shock absorption.', bg:'linear-gradient(135deg,#1A2A3A,#2A4A5A)', icon:'⚙️' },
+    { id:6, title:'The Sovereign Range', cat:'bats', filter:'bats', desc:'This season\'s Sovereign bats, ready for final quality check. Each one personally finished and signed by Ellie King.', bg:'linear-gradient(135deg,#2A3A1A,#4A6A2A)', icon:'👑' },
+    { id:7, title:'Oiling Day', cat:'process', filter:'process', desc:'Freshly profiled blades receiving their first coat of raw linseed oil. The oil soaks in over 24 hours before a second coat is applied.', bg:'linear-gradient(135deg,#3A1A2A,#6A3A4A)', icon:'🫙' },
+    { id:8, title:'Workshop Tools', cat:'workshop', filter:'workshop', desc:'The draw knives, spokeshaves, and profile templates that have shaped KingsWillow bats since the 1977 workshop opened.', bg:'linear-gradient(135deg,#1A1A3A,#3A3A6A)', icon:'🛠️' },
+    { id:9, title:'Essex Willow Groves', cat:'willow', filter:'willow', desc:'The Blackwood family farm in Chelmsford. Cricket willow trees are harvested at 15–20 years for the ideal combination of density and flexibility.', bg:'linear-gradient(135deg,#1A3A1A,#3A6A3A)', icon:'🌳' },
+    { id:10, title:'Colt Junior Range', cat:'bats', filter:'bats', desc:'A selection of the junior Colt range, sized Harrow through to 4. These bats are identical in construction to the adult range, just scaled.', bg:'linear-gradient(135deg,#3A3A1A,#6A6A2A)', icon:'⭐' },
+    { id:11, title:'Quality Inspection', cat:'workshop', filter:'workshop', desc:'Every bat is weighed, grain-counted, and balance-measured at this bench before receiving the KingsWillow inspection stamp.', bg:'linear-gradient(135deg,#2A1A1A,#5A3A3A)', icon:'✓' },
+    { id:12, title:'Sanding Progression', cat:'process', filter:'process', desc:'The four grits used in sanding — 80, 120, 240, 400 — each revealing a finer surface. The face must pass a light test before oiling.', bg:'linear-gradient(135deg,#1A2A1A,#3A5A3A)', icon:'📐' },
+  ];
+
+  let activeFilter = 'all';
+
+  function renderGallery(filter) {
+    const filtered = filter === 'all' ? items : items.filter(i => i.filter === filter);
+    document.getElementById('galleryGrid').innerHTML = filtered.map(item => `
+      <div class="gallery-item" data-id="${item.id}" role="button" tabindex="0" aria-label="View ${item.title}">
+        <div class="gallery-item-inner" style="background:${item.bg}">
+          <span style="font-size:3rem;position:relative;z-index:1;">${item.icon}</span>
+          <span style="position:absolute;top:0.75rem;left:0.75rem;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;color:rgba(250,247,240,0.5);z-index:1;">${item.cat}</span>
+        </div>
+        <div class="gallery-item-label">${item.title}</div>
+      </div>
+    `).join('');
+
+    // Attach click handlers
+    document.querySelectorAll('.gallery-item').forEach(el => {
+      el.addEventListener('click', () => openLightbox(parseInt(el.dataset.id)));
+      el.addEventListener('keydown', e => { if (e.key === 'Enter') openLightbox(parseInt(el.dataset.id)); });
+    });
+  }
+
+  function openLightbox(id) {
+    const item = items.find(i => i.id === id);
+    if (!item) return;
+    document.getElementById('lightboxVisual').style.background = item.bg;
+    document.getElementById('lightboxVisual').innerHTML = `<span style="font-size:5rem;">${item.icon}</span>`;
+    document.getElementById('lightboxCat').textContent = item.cat;
+    document.getElementById('lightboxTitle').textContent = item.title;
+    document.getElementById('lightboxDesc').textContent = item.desc;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  document.getElementById('lightboxClose').addEventListener('click', () => {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  });
+
+  document.getElementById('lightbox').addEventListener('click', e => {
+    if (e.target === e.currentTarget) {
+      e.currentTarget.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+
+  document.querySelectorAll('.gallery-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.gallery-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderGallery(btn.dataset.filter);
+    });
+  });
+
+  renderGallery('all');
+</script>
+</body>
+</html>

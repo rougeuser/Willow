@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Custom Bat Commission — KingsWillow Craft Co.</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <style>
+    .custom-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 4rem;
+      align-items: start;
+    }
+    .preview-card {
+      position: sticky;
+      top: 90px;
+      background: var(--forest-deep);
+      border-radius: 16px;
+      padding: 2rem;
+      color: var(--cream);
+    }
+    .preview-bat-stage {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 220px;
+      margin-bottom: 1.5rem;
+    }
+    .preview-spec-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.85rem;
+    }
+    .preview-spec-row:last-child { border-bottom: none; }
+    .preview-spec-key { color: rgba(250,247,240,0.5); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.07em; }
+    .preview-spec-val { font-weight: 600; color: var(--cream); }
+    .price-estimate {
+      background: rgba(184,115,51,0.15);
+      border: 1px solid rgba(184,115,51,0.3);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-top: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .price-estimate-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(250,247,240,0.5); }
+    .price-estimate-val { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--copper-light); }
+
+    .step-indicator {
+      display: flex;
+      gap: 0;
+      margin-bottom: 2.5rem;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .step-ind-item {
+      flex: 1;
+      padding: 0.75rem;
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: var(--white);
+      border-right: 1px solid var(--border);
+      transition: all 0.25s;
+    }
+    .step-ind-item:last-child { border-right: none; }
+    .step-ind-item.active { background: var(--forest-deep); color: var(--cream); }
+    .step-ind-item.done { background: var(--forest-mid); color: var(--cream); }
+
+    .form-section { display: none; }
+    .form-section.visible { display: block; }
+
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+    .option-card {
+      border: 2px solid var(--cream-dark);
+      border-radius: 8px;
+      padding: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      background: var(--white);
+    }
+    .option-card:hover { border-color: var(--copper); }
+    .option-card.selected { border-color: var(--forest-deep); background: var(--forest-deep); color: var(--cream); }
+    .option-card.selected .option-label { color: var(--cream); }
+    .option-card.selected .option-sub { color: rgba(250,247,240,0.6); }
+    .option-icon { font-size: 1.5rem; margin-bottom: 0.4rem; display: block; }
+    .option-label { font-size: 0.82rem; font-weight: 600; display: block; color: var(--text-body); }
+    .option-sub { font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 0.2rem; }
+
+    .form-nav {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .custom-layout { grid-template-columns: 1fr; }
+      .preview-card { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark">K</div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-title">KingsWillow</span>
+        <span class="nav-logo-sub">Craft Co. — Est. 1977</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/products">Products</a></li>
+      <li><a href="/process">Craft Process</a></li>
+      <li><a href="/gallery">Gallery</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/custom" class="nav-cta active">Custom Bat</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-woodgrain"></div>
+  <div class="page-hero-inner">
+    <span class="eyebrow">Bespoke Commission</span>
+    <h1>Your Bat. Your Specification.</h1>
+    <p>Tell us exactly what you want. Our craftsmen will build it for you from scratch.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="custom-layout">
+
+      <!-- Multi-step form -->
+      <div>
+        <div class="step-indicator">
+          <div class="step-ind-item active" id="ind-0">Willow</div>
+          <div class="step-ind-item" id="ind-1">Profile</div>
+          <div class="step-ind-item" id="ind-2">Handle</div>
+          <div class="step-ind-item" id="ind-3">Extras</div>
+          <div class="step-ind-item" id="ind-4">Contact</div>
+        </div>
+
+        <div id="formAlert" class="alert"></div>
+
+        <!-- Step 0: Willow grade -->
+        <div class="form-section visible" id="step-0">
+          <h3 style="margin-bottom:0.5rem;">Choose Your Willow Grade</h3>
+          <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem;">Higher grades have tighter grains and fewer blemishes — but all are cricket-ready.</p>
+          <div class="option-grid">
+            <div class="option-card" data-field="grade" data-val="Grade 1+ Reserve" data-price="350">
+              <span class="option-icon">👑</span>
+              <span class="option-label">Grade 1+ Reserve</span>
+              <span class="option-sub">7+ grains · Sovereign only</span>
+            </div>
+            <div class="option-card" data-field="grade" data-val="Grade 1 English" data-price="250">
+              <span class="option-icon">⭐</span>
+              <span class="option-label">Grade 1 English</span>
+              <span class="option-sub">5–7 grains · Pro/county</span>
+            </div>
+            <div class="option-card" data-field="grade" data-val="Grade 2 English" data-price="180">
+              <span class="option-icon">🏏</span>
+              <span class="option-label">Grade 2 English</span>
+              <span class="option-sub">4–6 grains · Club level</span>
+            </div>
+            <div class="option-card" data-field="grade" data-val="Grade 3 English" data-price="130">
+              <span class="option-icon">🌿</span>
+              <span class="option-label">Grade 3 English</span>
+              <span class="option-sub">3–5 grains · League play</span>
+            </div>
+          </div>
+          <div class="form-nav">
+            <button class="btn btn-primary" onclick="nextStep()">Next: Profile →</button>
+          </div>
+        </div>
+
+        <!-- Step 1: Profile & weight -->
+        <div class="form-section" id="step-1">
+          <h3 style="margin-bottom:0.5rem;">Blade Profile & Weight</h3>
+          <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem;">Profile affects pickup and sweet spot position. Weight is your preference within range.</p>
+          <div class="form-group">
+            <label class="form-label">Blade Profile</label>
+            <div class="option-grid">
+              <div class="option-card" data-field="profile" data-val="Full Profile">
+                <span class="option-icon">📊</span>
+                <span class="option-label">Full Profile</span>
+                <span class="option-sub">Traditional, high spine</span>
+              </div>
+              <div class="option-card" data-field="profile" data-val="Mid Profile">
+                <span class="option-icon">⚖️</span>
+                <span class="option-label">Mid Profile</span>
+                <span class="option-sub">Balanced, versatile</span>
+              </div>
+              <div class="option-card" data-field="profile" data-val="Flat Profile">
+                <span class="option-icon">📏</span>
+                <span class="option-label">Flat Profile</span>
+                <span class="option-sub">Low spine, drives well</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:1.5rem;">
+            <label class="form-label" for="weightPref">Preferred Weight</label>
+            <select class="form-control" id="weightPref">
+              <option value="">No preference — craftsman's choice</option>
+              <option value="1160–1180g">1160–1180g (Light)</option>
+              <option value="1180–1200g">1180–1200g (Medium-Light)</option>
+              <option value="1200–1220g">1200–1220g (Medium)</option>
+              <option value="1220–1240g">1220–1240g (Medium-Heavy)</option>
+              <option value="1240g+">1240g+ (Heavy)</option>
+            </select>
+          </div>
+          <div class="form-nav">
+            <button class="btn btn-outline btn-forest" onclick="prevStep()">← Back</button>
+            <button class="btn btn-primary" onclick="nextStep()">Next: Handle →</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Handle -->
+        <div class="form-section" id="step-2">
+          <h3 style="margin-bottom:0.5rem;">Handle Specification</h3>
+          <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem;">The handle transmits feel and absorbs shock. Pick what feels right in your hands.</p>
+          <div class="form-group">
+            <label class="form-label">Handle Shape</label>
+            <div class="option-grid">
+              <div class="option-card" data-field="handleShape" data-val="Oval">
+                <span class="option-icon">🥚</span>
+                <span class="option-label">Oval</span>
+                <span class="option-sub">Traditional, most popular</span>
+              </div>
+              <div class="option-card" data-field="handleShape" data-val="Round">
+                <span class="option-icon">⭕</span>
+                <span class="option-label">Round</span>
+                <span class="option-sub">Easier wrist rotation</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:1.5rem;">
+            <label class="form-label">Cane Grade</label>
+            <div class="option-grid">
+              <div class="option-card" data-field="caneGrade" data-val="Premium Sarawak" data-price="30">
+                <span class="option-icon">🌴</span>
+                <span class="option-label">Premium Sarawak</span>
+                <span class="option-sub">12-piece spiral · +£30</span>
+              </div>
+              <div class="option-card" data-field="caneGrade" data-val="Standard Cane" data-price="0">
+                <span class="option-icon">🪵</span>
+                <span class="option-label">Standard Cane</span>
+                <span class="option-sub">8-piece · included</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:1.5rem;">
+            <label class="form-label" for="gripColor">Grip Colour</label>
+            <select class="form-control" id="gripColor">
+              <option value="Black">Black (standard)</option>
+              <option value="White">White</option>
+              <option value="Red">Red</option>
+              <option value="Navy">Navy Blue</option>
+              <option value="Forest Green">Forest Green</option>
+              <option value="Custom">Custom — specify in notes</option>
+            </select>
+          </div>
+          <div class="form-nav">
+            <button class="btn btn-outline btn-forest" onclick="prevStep()">← Back</button>
+            <button class="btn btn-primary" onclick="nextStep()">Next: Extras →</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Extras -->
+        <div class="form-section" id="step-3">
+          <h3 style="margin-bottom:0.5rem;">Finishing & Extras</h3>
+          <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem;">Optional add-ons to complete your commission.</p>
+
+          <div class="form-group">
+            <label class="form-label">Add-ons</label>
+            <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:0.5rem;">
+              <label style="display:flex;align-items:center;gap:0.75rem;cursor:pointer;padding:0.9rem;border:1.5px solid var(--cream-dark);border-radius:8px;transition:border-color 0.2s;" id="addon-knocking">
+                <input type="checkbox" id="cb-knocking" style="width:auto;" onchange="updateAddon('knocking',25,this.checked)"/>
+                <div>
+                  <div style="font-size:0.88rem;font-weight:600;">Workshop Knocking-In Service <span style="color:var(--copper);">+£25</span></div>
+                  <div style="font-size:0.75rem;color:var(--text-muted);">Our craftsmen knock in your bat (4–6hrs) before dispatch</div>
+                </div>
+              </label>
+              <label style="display:flex;align-items:center;gap:0.75rem;cursor:pointer;padding:0.9rem;border:1.5px solid var(--cream-dark);border-radius:8px;transition:border-color 0.2s;" id="addon-engraving">
+                <input type="checkbox" id="cb-engraving" style="width:auto;" onchange="updateAddon('engraving',20,this.checked)"/>
+                <div>
+                  <div style="font-size:0.88rem;font-weight:600;">Personalised Engraving <span style="color:var(--copper);">+£20</span></div>
+                  <div style="font-size:0.75rem;color:var(--text-muted);">Name, initials, or a short message burned into the toe</div>
+                </div>
+              </label>
+              <label style="display:flex;align-items:center;gap:0.75rem;cursor:pointer;padding:0.9rem;border:1.5px solid var(--cream-dark);border-radius:8px;" id="addon-guard">
+                <input type="checkbox" id="cb-guard" style="width:auto;" onchange="updateAddon('guard',8,this.checked)"/>
+                <div>
+                  <div style="font-size:0.88rem;font-weight:600;">Toe Guard Fitted <span style="color:var(--copper);">+£8</span></div>
+                  <div style="font-size:0.75rem;color:var(--text-muted);">Anti-moisture toe protection; extends bat life significantly</div>
+                </div>
+              </label>
+              <label style="display:flex;align-items:center;gap:0.75rem;cursor:pointer;padding:0.9rem;border:1.5px solid var(--cream-dark);border-radius:8px;" id="addon-bag">
+                <input type="checkbox" id="cb-bag" style="width:auto;" onchange="updateAddon('bag',35,this.checked)"/>
+                <div>
+                  <div style="font-size:0.88rem;font-weight:600;">KingsWillow Canvas Bat Bag <span style="color:var(--copper);">+£35</span></div>
+                  <div style="font-size:0.75rem;color:var(--text-muted);">Hand-stitched waxed canvas bat sleeve with our workshop stamp</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top:1.5rem;">
+            <label class="form-label" for="engravingText">Engraving Text (if selected)</label>
+            <input class="form-control" type="text" id="engravingText" maxlength="40" placeholder="e.g. J. Hartley · 2024"/>
+            <div style="font-size:0.72rem;color:var(--text-muted);margin-top:0.3rem;">Max 40 characters</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="customNotes">Additional Notes</label>
+            <textarea class="form-control" id="customNotes" rows="4" placeholder="Anything else you'd like us to know — specific balance point, toe shape, sticker preference, sizing for junior bat…"></textarea>
+          </div>
+
+          <div class="form-nav">
+            <button class="btn btn-outline btn-forest" onclick="prevStep()">← Back</button>
+            <button class="btn btn-primary" onclick="nextStep()">Next: Your Details →</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Contact details -->
+        <div class="form-section" id="step-4">
+          <h3 style="margin-bottom:0.5rem;">Your Contact Details</h3>
+          <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem;">We'll confirm your commission and follow up with any clarifying questions.</p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="custName">Full Name *</label>
+              <input class="form-control" type="text" id="custName" placeholder="James Hartley" required/>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="custEmail">Email *</label>
+              <input class="form-control" type="email" id="custEmail" placeholder="you@example.com" required/>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="custPhone">Phone</label>
+              <input class="form-control" type="tel" id="custPhone" placeholder="+44 7700 000000"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="custDeadline">Desired Delivery</label>
+              <input class="form-control" type="date" id="custDeadline"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="custAddress">Delivery Address</label>
+            <textarea class="form-control" id="custAddress" rows="3" placeholder="Street, city, postcode, country"></textarea>
+          </div>
+
+          <div class="form-nav">
+            <button class="btn btn-outline btn-forest" onclick="prevStep()">← Back</button>
+            <button class="btn btn-primary btn-lg" id="submitCustomBtn" onclick="submitOrder()">
+              Submit Commission Request
+            </button>
+          </div>
+        </div>
+
+        <!-- Confirmation -->
+        <div class="form-section" id="step-confirm">
+          <div style="text-align:center;padding:3rem 1rem;">
+            <div style="font-size:3.5rem;margin-bottom:1rem;">🏏</div>
+            <h2 id="confirmTitle">Commission Received</h2>
+            <p id="confirmMsg" style="color:var(--text-muted);margin:1rem auto 2rem;max-width:480px;"></p>
+            <div id="confirmRef" style="background:var(--cream-warm);border:1px solid var(--border);border-radius:8px;padding:1rem 1.5rem;display:inline-block;margin-bottom:2rem;">
+              <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);">Your Reference</div>
+              <div id="refNumber" style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--forest-deep);"></div>
+            </div>
+            <br>
+            <a href="/products" class="btn btn-forest">Browse Ready-Made Bats</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live preview sidebar -->
+      <div>
+        <div class="preview-card">
+          <span class="eyebrow" style="color:var(--copper-light);">Your Commission</span>
+          <div class="preview-bat-stage" id="previewBat"></div>
+          <div id="previewSpecs">
+            <div class="preview-spec-row"><span class="preview-spec-key">Grade</span><span class="preview-spec-val" id="prev-grade">—</span></div>
+            <div class="preview-spec-row"><span class="preview-spec-key">Profile</span><span class="preview-spec-val" id="prev-profile">—</span></div>
+            <div class="preview-spec-row"><span class="preview-spec-key">Weight</span><span class="preview-spec-val" id="prev-weight">—</span></div>
+            <div class="preview-spec-row"><span class="preview-spec-key">Handle</span><span class="preview-spec-val" id="prev-handle">—</span></div>
+            <div class="preview-spec-row"><span class="preview-spec-key">Cane</span><span class="preview-spec-val" id="prev-cane">—</span></div>
+            <div class="preview-spec-row"><span class="preview-spec-key">Grip</span><span class="preview-spec-val" id="prev-grip">—</span></div>
+          </div>
+          <div class="price-estimate">
+            <div>
+              <div class="price-estimate-label">Estimated Price</div>
+              <div class="price-estimate-val" id="prevPrice">£—</div>
+            </div>
+            <div style="font-size:0.72rem;color:rgba(250,247,240,0.45);text-align:right;max-width:110px;">Final quote on confirmation</div>
+          </div>
+          <p style="font-size:0.72rem;color:rgba(250,247,240,0.4);margin-top:1rem;line-height:1.5;">Commission bats take 52–60 days from approval. Deposit of 50% required before work begins.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand"><h3>KingsWillow Craft Co.</h3><p>Handcrafting English willow cricket bats in Essex since 1977.</p></div>
+    <div class="footer-col"><h4>Products</h4><ul><li><a href="/products">All Bats</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Newsletter</h4><form class="newsletter-form" id="newsletterForm"><input type="email" placeholder="your@email.com" required/><button type="submit">Subscribe</button></form></div>
+  </div>
+  <div class="footer-bottom"><span>© 2024 KingsWillow Craft Co. Ltd.</span></div>
+</footer>
+
+<script src="/js/main.js"></script>
+<script>
+  let currentStep = 0;
+  const totalSteps = 5;
+  const spec = { grade: '', gradePrice: 0, profile: '', weight: '', handleShape: '', caneGrade: '', canePrice: 0, gripColor: 'Black', addons: {}, addonTotal: 0 };
+
+  // Inject preview bat SVG
+  document.getElementById('previewBat').innerHTML = createBatSVG('#C8860A', '#8B5E1A', 'custGrad');
+
+  function goToStep(n) {
+    document.querySelectorAll('.form-section').forEach(s => s.classList.remove('visible'));
+    document.getElementById(n < totalSteps ? `step-${n}` : 'step-confirm').classList.add('visible');
+    document.querySelectorAll('.step-ind-item').forEach((el, i) => {
+      el.classList.toggle('active', i === n);
+      el.classList.toggle('done', i < n);
+    });
+    currentStep = n;
+    window.scrollTo({ top: document.querySelector('.custom-layout').offsetTop - 80, behavior: 'smooth' });
+  }
+
+  function nextStep() { goToStep(currentStep + 1); }
+  function prevStep() { goToStep(currentStep - 1); }
+
+  // Option card selection
+  document.querySelectorAll('.option-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const field = card.dataset.field;
+      document.querySelectorAll(`[data-field="${field}"]`).forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      const val = card.dataset.val;
+      const price = parseInt(card.dataset.price || 0);
+
+      if (field === 'grade') { spec.grade = val; spec.gradePrice = price; }
+      else if (field === 'profile') spec.profile = val;
+      else if (field === 'handleShape') spec.handleShape = val;
+      else if (field === 'caneGrade') { spec.caneGrade = val; spec.canePrice = price; }
+
+      updatePreview();
+    });
+  });
+
+  // Weight & grip dropdowns
+  document.getElementById('weightPref').addEventListener('change', e => {
+    spec.weight = e.target.value || 'Craftsman\'s choice';
+    updatePreview();
+  });
+  document.getElementById('gripColor').addEventListener('change', e => {
+    spec.gripColor = e.target.value;
+    updatePreview();
+  });
+
+  function updateAddon(key, price, checked) {
+    spec.addons[key] = checked ? price : 0;
+    spec.addonTotal = Object.values(spec.addons).reduce((a, b) => a + b, 0);
+    updatePreview();
+  }
+
+  function updatePreview() {
+    document.getElementById('prev-grade').textContent = spec.grade || '—';
+    document.getElementById('prev-profile').textContent = spec.profile || '—';
+    document.getElementById('prev-weight').textContent = spec.weight || '—';
+    document.getElementById('prev-handle').textContent = spec.handleShape || '—';
+    document.getElementById('prev-cane').textContent = spec.caneGrade || '—';
+    document.getElementById('prev-grip').textContent = spec.gripColor || '—';
+
+    const total = spec.gradePrice + spec.canePrice + spec.addonTotal;
+    document.getElementById('prevPrice').textContent = total > 0 ? `£${total.toFixed(2)}` : '£—';
+  }
+
+  async function submitOrder() {
+    const name = document.getElementById('custName').value.trim();
+    const email = document.getElementById('custEmail').value.trim();
+
+    if (!name || !email) {
+      alert('Please fill in your name and email to submit.');
+      return;
+    }
+    if (!spec.grade || !spec.profile || !spec.handleShape) {
+      alert('Please complete all specification steps before submitting.');
+      return;
+    }
+
+    const btn = document.getElementById('submitCustomBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Submitting…';
+
+    const payload = {
+      name, email,
+      phone: document.getElementById('custPhone').value,
+      grade: spec.grade,
+      profile: spec.profile,
+      weight: spec.weight || "Craftsman's choice",
+      handle: `${spec.handleShape} — ${spec.caneGrade || 'Standard'}`,
+      gripColor: spec.gripColor,
+      addons: Object.keys(spec.addons).filter(k => spec.addons[k] > 0).join(', ') || 'None',
+      engravingText: document.getElementById('engravingText').value,
+      notes: document.getElementById('customNotes').value,
+      deliveryAddress: document.getElementById('custAddress').value,
+      desiredDelivery: document.getElementById('custDeadline').value,
+      estimatedPrice: spec.gradePrice + spec.canePrice + spec.addonTotal
+    };
+
+    try {
+      const data = await apiPost('/api/custom-order', payload);
+      if (data.success) {
+        document.getElementById('confirmTitle').textContent = 'Commission Received!';
+        document.getElementById('confirmMsg').textContent = data.message;
+        document.getElementById('refNumber').textContent = data.orderId;
+        goToStep(totalSteps);
+      } else {
+        document.getElementById('formAlert').className = 'alert alert-error';
+        document.getElementById('formAlert').textContent = 'Something went wrong. Please try again.';
+        document.getElementById('formAlert').style.display = 'block';
+      }
+    } catch {
+      document.getElementById('formAlert').className = 'alert alert-error';
+      document.getElementById('formAlert').textContent = 'Unable to submit. Please email craft@kingswillow.co.uk directly.';
+      document.getElementById('formAlert').style.display = 'block';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Submit Commission Request';
+    }
+  }
+</script>
+</body>
+</html>
